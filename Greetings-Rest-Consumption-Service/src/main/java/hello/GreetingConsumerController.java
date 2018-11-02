@@ -1,10 +1,9 @@
 package hello;
 
-import brave.http.HttpTracing;
-import brave.httpclient.TracingHttpClientBuilder;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class GreetingConsumerController {
     HttpClient httpClient;
 
     @Bean
-    HttpClient httpClient(HttpTracing httpTracing) {
-       return TracingHttpClientBuilder.create(httpTracing).build();
+    HttpClient httpClient() {
+       return HttpClients.createDefault();
     }
 
     @RequestMapping("/greetingscaller")
